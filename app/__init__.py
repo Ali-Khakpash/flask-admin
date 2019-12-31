@@ -1,7 +1,7 @@
 from flask import Flask
 from config import config
 from Model.User import db
-from admin.my_admin import myadmin
+from admin import myadmin
 
 app = Flask(__name__)
 
