@@ -1,7 +1,11 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
-signUp_routes = Blueprint("signUp_routes", __name__)
+signUp_routes = Blueprint("signUp_routes", __name__, template_folder='../')
 
-@signUp_routes.route('', methods=['POST','GET'], template_folder='../')
+
+@signUp_routes.route('', methods=['POST', 'GET'])
 def sign_up():
-    return render_template('templates/signin.html')
+
+    if request.method == 'POST':
+       print()
+    return render_template('templates/signing/signup.html')
