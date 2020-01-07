@@ -1,7 +1,11 @@
 from db import db
+from flask_login import UserMixin
 from flask_authorize import RestrictionsMixin, AllowancesMixin
 from flask_authorize import PermissionsMixin
 from Model.role import Role
+# from login_handle import login_manager
+# from app import login_manager
+from login_handle import login_manager
 
 UserRole = db.Table(
     'user_role', db.Model.metadata,
@@ -9,7 +13,7 @@ UserRole = db.Table(
     db.Column('role_id', db.Integer, db.ForeignKey('roles.id'))
 )
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(120), unique = True,nullable = False)
@@ -26,6 +30,6 @@ class User(db.Model):
 
 
 
-
-
-
+# @login_manager.user_loader
+# def load_user(user_id):
+#     return User.get(user_id)
