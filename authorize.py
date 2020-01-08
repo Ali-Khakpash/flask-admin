@@ -1,4 +1,3 @@
-# from flask_authorize import Authorize
-# from flask import g
-#
-# authorize = Authorize(current_user = g.user)
+from flask_authorize import Authorize
+from flask_login import current_user
+authorize = Authorize(current_user = current_user)
