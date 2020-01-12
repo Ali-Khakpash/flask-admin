@@ -1,0 +1,29 @@
+        {% if authorize.create('articless') %}
+            <button>Delete Article</button>
+        {% endif %}
+
+
+
+
+
+
+
+<!-- display article feed -->
+{% for pro in alls %}
+
+    <!-- show article if user has read access -->
+    {% if authorize.read(article) %}
+        <h1>{{ pro.name }}</h1>
+
+        <!-- add edit button -->
+        {% if authorize.update('article') %}
+            <button>Update Article</button>
+        {% endif %}
+
+        <!-- add delete button for administrators -->
+        {% if authorize.in_group('admins') %}
+            <button>Delete Article</button>
+        {% endif %}
+
+    {% endif %}
+{% endfor %}

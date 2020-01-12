@@ -3,9 +3,17 @@ from flask_login import UserMixin
 from flask_authorize import RestrictionsMixin, AllowancesMixin
 from flask_authorize import PermissionsMixin
 from Model.role import Role
+from Model.Group import Group
 # from login_handle import login_manager
 # from app import login_manager
 from login_handle import login_manager
+
+
+UserGroup = db.Table(
+    'user_group', db.Model.metadata,
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('group_id', db.Integer, db.ForeignKey('groups.id'))
+)
 
 UserRole = db.Table(
     'user_role', db.Model.metadata,
@@ -23,6 +31,8 @@ class User(UserMixin, db.Model):
     roles = db.relationship(
         'Role', secondary=UserRole, backref=db.backref('user_roles', lazy='dynamic')
     )
+
+    groups = db.relationship('Group', secondary=UserGroup)
 
     def __init__(self, username, password):
         self.username = username
