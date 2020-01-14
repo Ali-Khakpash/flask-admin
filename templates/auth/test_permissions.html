@@ -2,10 +2,13 @@
             <button>Delete Article</button>
         {% endif %}
 
+<h2 style="color: red">{{ current_user.id }}</h2>
 
+    {% if  product.owner_id == current_user.id%}
+          <button>Add Article</button>
+    {% endif %}
 
-
-
+<!--{{product.owner_id}}-->
 
 
 <!-- display article feed -->

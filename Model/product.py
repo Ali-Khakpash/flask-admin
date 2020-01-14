@@ -12,7 +12,7 @@ class Product(db.Model, PermissionsMixin):
     )
 
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
-    name = db.Column(db.String(50))
+    name = db.Column(db.String(50),index=True, nullable=False)
     desc = db.Column(db.String(200))
     #user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 

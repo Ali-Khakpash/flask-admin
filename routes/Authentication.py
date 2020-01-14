@@ -115,22 +115,18 @@ def create_article():
 
 
 @auth_routes.route('test-add-pro', methods=['GET'])
-@login.logged_in
+# @login.logged_in
 @authorize.create(Product)
 def add_pro():
-    pro = Product(
+    name = Product(
         name='hat',
         desc='nice',
-        permissions=dict(
-                owner=['read', 'update', 'delete', 'revoke']
-                # group=['read', 'update'],
-                # other=['read']
-        )
+        owner_id=current_user.id
     )
-    db.session.add(pro)
+    db.session.add(name)
     db.session.commit()
     # return render_template('templates/auth/test_permissions.html')
-    return make_response({"per":pro.permissions})
+    return make_response({"per":name})
 
 
 @auth_routes.route('test-get-allpro', methods=['GET'])
@@ -141,6 +137,14 @@ def get_all_pro():
     article = Product(name='hat', desc='nice')
 
     return make_response({'per':article.permissions})
+
+
+@auth_routes.route('test-get-apro/<int:product>', methods=['GET'])
+# @authorize.read
+def get_all_a_pro(product):
+    product = Product.query.filter_by(id=product).first()
+    # return make_response({'per':product.owner_permissions[0]})
+    return render_template('templates/auth/test_permissions.html',product=product)
 
 
 
