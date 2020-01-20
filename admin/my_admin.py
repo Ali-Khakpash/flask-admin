@@ -1,5 +1,5 @@
-from flask import request
-from flask_admin import expose
+from flask import request, make_response
+from flask_admin import expose, BaseView
 from flask_admin.contrib import sqla
 from Form.MyForm import CustomForm
 
@@ -18,19 +18,15 @@ class MicroBlogModelView(sqla.ModelView):
         #return self._template_args['name']  $used for passing variables to
         return 'fggf'
 
-
     def is_accessible(self):
         return True
-
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
         return 'f'
 
-
     def is_visible(self):
         return True
-
 
 
 class ProductView(sqla.ModelView):
@@ -41,3 +37,18 @@ class ProductView(sqla.ModelView):
     # """
        form = CustomForm()
        return self.render('templates/crud/create.html' , form=form)
+
+
+class SignUp(sqla.ModelView):
+    @expose('/', methods=('GET', 'POST'))
+    def create_view(self):
+       form = CustomForm()
+       return self.render('templates/crud/create.html' , form=form.username)
+       #return make_response(print(form))
+
+
+
+class MyView(BaseView):
+    @expose('/')
+    def index(self):
+        return 'Hello World!'

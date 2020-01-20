@@ -3,4 +3,13 @@ from wtforms import StringField, Form
 from wtforms.validators import DataRequired
 
 class CustomForm(FlaskForm):
-      ozil = StringField('ozil')
+      username = StringField('username')
+      password = StringField('password')
+
+      # def __init__(self, username, password):
+      #       self.username = username
+      #       self.password = password
+
+      @staticmethod
+      def multiplyNums(x, y):
+            return x + y
