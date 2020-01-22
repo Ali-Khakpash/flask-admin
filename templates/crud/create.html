@@ -5,12 +5,13 @@
 {% endblock %}
 
 {% block body %}
-  <p>Here I'm going to display some data.</p>
 
-<form method="POST" action="/">
+<form method="POST" action="{{action}}">
     {{ form.csrf_token }}
-    {{ form(size=20) }}
-    <input type="submit" value="">
+     {%for key, value in form.items() %}
+        <p>{{value.label}}: {{value}}</p>
+     {% endfor %}
+    <input type="submit" value="{{submit}}">
 </form>
 
 {% endblock %}
