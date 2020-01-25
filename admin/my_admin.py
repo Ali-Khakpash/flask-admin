@@ -1,9 +1,11 @@
+import login
 import requests
 from flask import request, make_response, json, jsonify
 from flask_admin import expose, BaseView
 from flask_admin.contrib import sqla
 from Form.MyForm import CustomForm
 from Model.User import User, db
+from flask_login import login_user, current_user, login_required
 
 
 class MicroBlogModelView(sqla.ModelView):
@@ -31,13 +33,19 @@ class MicroBlogModelView(sqla.ModelView):
 
 
 class ProductView(sqla.ModelView):
-    @expose('/new/', methods=('GET', 'POST'))
-    def create_view(self):
-    # """
-    #     Custom create view.
-    # """
-       form = CustomForm()
-       return self.render('templates/crud/create.html' , form=form)
+    # @expose('/new/', methods=('GET', 'POST'))
+    # def create_view(self):
+    #     return self.render('templates/crud/createtemplate.html')
+    #
+    # create_template = 'crud/createtemplate.html'
+
+    # def is_visible(self):
+    #       return True
+    # def is_accessible(self):
+    #       return login.current_user.is_authenticated
+
+    pass
+
 
 
 # class SignUp(BaseView):
@@ -67,6 +75,11 @@ class ProductView(sqla.ModelView):
 
 
 class SignUp(BaseView ):
+
+    # def is_accessible(self):
+    #     if(login.current_user.is_authenticated):
+    #        return False
+
     @expose('/', methods=('GET', 'POST'))
     def index(self):
         form = CustomForm()
@@ -103,7 +116,14 @@ class SignIn(BaseView):
                  "password": request.values.get('password')
              }
              resp = call_post_api(payload, 'users/login')
-             return make_response({'user':resp})
+
+             if(resp['stat_code']):
+                 user = User.query.filter_by(username=payload['username']).first()
+                 if user is not None:
+                     login_user(user)
+                     return make_response({'user': current_user.username})
+
+             return make_response({'status':resp['stat_code']})
          return self.render('templates/crud/create.html', form=form_fields, submit='signin',
                             action='/signin/'
                             )
