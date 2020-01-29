@@ -32,12 +32,16 @@ class MicroBlogModelView(sqla.ModelView):
         return True
 
 
-class ProductView(sqla.ModelView):
-    # @expose('/new/', methods=('GET', 'POST'))
-    # def create_view(self):
-    #     return self.render('templates/crud/createtemplate.html')
-    #
-    # create_template = 'crud/createtemplate.html'
+class ProductView(BaseView):
+    @expose('/', methods=('GET', 'POST'))
+    def create_view(self):
+        return self.render('templates/crud/createtemplate.html')
+
+    @expose('/new', methods=('GET', 'POST'))
+    def new_view(self):
+        return self.render('templates/crud/new.html')
+
+    #create_template = 'crud/createtemplate.html'
 
     # def is_visible(self):
     #       return True

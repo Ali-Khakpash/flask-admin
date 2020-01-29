@@ -13,7 +13,7 @@ myadmin = Admin(name='microblog' , template_mode='bootstrap3', index_view=
             )
 
 # myadmin.add_view(MicroBlogModelView(User, db.session))
-myadmin.add_view(ProductView(Product, db.session))
+myadmin.add_view(ProductView(name='Product'))
 # myadmin.add_view(SignUp(name='SignUp', url='/signup'))
 myadmin.add_view(MyView(name='My View', menu_icon_type='glyph', menu_icon_value='glyphicon-home'))
 myadmin.add_view(SignIn(name='SignIn', url='/signin'))

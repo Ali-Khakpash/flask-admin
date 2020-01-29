@@ -1,34 +1,521 @@
 {% extends 'admin/master.html' %}
-{% import 'admin/lib.html' as lib with context %}
-{% from 'admin/lib.html' import extra with context %} {# backward compatible #}
+
 
 {% block head %}
-  {{ super() }}
-  {{ lib.form_css() }}
+<style>
+    body {
+
+    }
+
+    .add-action {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .add-action button {
+        font-family: Montserrat-Bold;
+        font-size: 12px;
+        color: #fff;
+        line-height: 1.2;
+        text-transform: uppercase;
+
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+        min-width: 160px;
+        height: 42px;
+        border-radius: 21px;
+        background: #846add;
+
+        box-shadow: 0 10px 30px 0px rgba(132, 106, 221, 0.5);
+        -moz-box-shadow: 0 10px 30px 0px rgba(132, 106, 221, 0.5);
+        -webkit-box-shadow: 0 10px 30px 0px rgba(132, 106, 221, 0.5);
+        -o-box-shadow: 0 10px 30px 0px rgba(132, 106, 221, 0.5);
+        -ms-box-shadow: 0 10px 30px 0px rgba(132, 106, 221, 0.5);
+
+        -webkit-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        transition: all 0.4s;
+    }
+
+    .list {
+        width: 100%;
+    }
+
+    .col-sm-2 {
+        position: fixed;
+        right: 6%;
+    }
+
+    .base {
+
+    }
+
+</style>
 {% endblock %}
+
 
 {% block body %}
-  {% block navlinks %}
-  <ul class="nav nav-tabs">
-    <li>
-        <a href="{{ return_url }}">{{ _gettext('List') }}</a>
-    </li>
-    <li class="active">
-        <a href="javascript:void(0)">{{ _gettext('Create') }}</a>
-    </li>
-  </ul>
-  {% endblock %}
 
-  {% block create_form %}
-    {{ lib.render_form(form, return_url, extra(), form_opts) }}
-  {% endblock %}
+<div class="container base">
+    <div class="col-sm-12">
+
+        <div class="col-sm-10">
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="height: 220px;">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="">
+                    <a href="#" style="text-decoration: none; color: inherit">
+
+                        <div>
+                            <div style="position:relative;">
+                                <img class="card-img-top" src="https://source.unsplash.com/daily" alt="Card image top"
+                                     style="">
+                                <span style="position:absolute;bottom: 0px;color:red;">a.s</span>
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title">Card title</h3>
+                            <!--                    <h6 class="card-subtitle">Card subtitle</h6>-->
+                            <!--                    <p class="card-text">This is a simple Card example</p>-->
+                            <div class="card-subtitle">
+
+                                <div class="float-right">fdf</div>
+                                <div class="float-right mr-2">ss</div>
+                                <div class="float-left">dfdf</div>
+
+                            </div>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-2">
+            <div class="add-action">
+                <button class="btn btn-info ">Add</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 {% endblock %}
 
-{% block tail %}
-  {{ super() }}
-  {{ lib.form_js() }}
-{% endblock %}
 
 
 
