@@ -1,33 +1,65 @@
-{% extends 'templates/outadminbase.html' %}
+{% extends 'admin/index.html' %}
 
-{% block title %} SignUp {% endblock %}
+{% block help_css %}
+    <style>
+        label{
+            min-width: 50px!important;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}
+  Product-Create
+{% endblock %}
+
+{% block body %}
 
 
-<style>
-    {% block style %}
-      form{
-          display: block;
-          width: 30%;
-          margin-left: 3%;margin-top: 3%;
-      }
-   {% endblock %}
-</style>
+<div style="width: 30%">
+    {% if res is defined %}
 
+       {% if res['status_code'] == 200  %}
+                <div class="alert alert-success" role="alert">
+                     {{res['message']}}
+                </div>
 
-{% block content %}
+       {% elif res['status_code'] == 422 %}
 
-<!--form codes-->
-<form action="signup" method="post">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Username</label>
-    <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
-    <!-- <small id="emailHelp" class="form-text text-muted"></small>-->
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+           {% if res['errors']['blank_fields'] is defined %}
+                {% set blank_fields = res['errors']['blank_fields'] %}
+                {%for v in blank_fields %}
+                    <div class="alert alert-danger" role="alert">
+                         {{v}} can't be blank
+                    </div>
+                {% endfor %}
+
+           {% elif res['errors']['password_error'] is defined %}
+                {% set password_error = res['errors']['password_error'] %}
+                <div class="alert alert-danger" role="alert">
+                    {{password_error}}
+                </div>
+
+           {% elif res['errors']['unique_fields'] is defined %}
+                {% set unique_fields = res['errors']['unique_fields'] %}
+                <div class="alert alert-danger" role="alert">
+                    {{unique_fields}}
+                </div>
+
+          {% endif %}
+
+       {% endif %}
+
+    {% endif %}
+
+</div>
+
+<form method="POST" action="{{action}}">
+    {{ form.csrf_token }}
+     {%for key, value in form.items() %}
+        <p>{{value.label}}: {{value}}</p>
+     {% endfor %}
+    <input type="submit" value="{{submit}}">
 </form>
 
 {% endblock %}
+

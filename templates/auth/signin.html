@@ -1,33 +1,43 @@
-{% extends 'templates/outadminbase.html' %}
+{% extends 'admin/index.html' %}
 
-{% block title %} SignIn {% endblock %}
+{% block help_css %}
+    <style>
+        label{
+            min-width: 50px!important;
+        }
+        .alert-dismissable{
+
+        }
+    </style>
+{% endblock %}
+
+{% block title %}
+  Product-Create
+{% endblock %}
+
+{% block body %}
 
 
-<style>
-    {% block style %}
-      form{
-          display: block;
-          width: 30%;
-          margin-left: 3%;margin-top: 3%;
-      }
-   {% endblock %}
-</style>
+<div style="width: 30%">
+
+    {% set message = get_flashed_messages() %}
+          {% if message %}
+            <div class="alert alert-success" role="alert">
+                {{ message | replace("[", "") | replace("]","") | replace('"',"") }}
+            </div>
+          {% endif %}
 
 
-{% block content %}
+</div>
 
-<!--form codes-->
-<form action="signin" method="post">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Username</label>
-    <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
-    <!-- <small id="emailHelp" class="form-text text-muted"></small>-->
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+
+<form method="POST" action="{{action}}">
+    {{ form.csrf_token }}
+     {%for key, value in form.items() %}
+        <p>{{value.label}}: {{value}}</p>
+     {% endfor %}
+    <input type="submit" value="{{submit}}">
 </form>
 
 {% endblock %}
+

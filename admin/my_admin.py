@@ -1,6 +1,6 @@
 import login
 import requests
-from flask import request, make_response, json, jsonify
+from flask import redirect, flash, url_for, request, make_response, json, jsonify
 from flask_admin import expose, BaseView
 from flask_admin.contrib import sqla
 from Form.MyForm import CustomForm
@@ -90,26 +90,23 @@ class SignUp(BaseView ):
         restClient = REST()
         form = CustomForm()
         form_fields = {
-        'username':form.username,
-        'password':form.password,
-        'email':form.email
+        'email': form.email,
+        'password':form.password
         }
         if request.method == 'POST':
             payload = {
-                "username": request.values.get('username'),
-                "password": request.values.get('password'),
-                "email":    request.values.get('email')
+                "email":    request.values.get('email'),
+                "password": request.values.get('password')
             }
-            #resp = call_post_api(payload,'signup')
-            #print(resp)
+
             res = restClient.register('signup', payload)
-            return self.render('templates/crud/create.html', res=res, form=form_fields, submit='create account', action='/signup/')
-            #return make_response(res)
-            # if (resp["stat_code"] == 200):
-            #     new_user = User(resp['user']['username'], resp['user']['password'])
-            #     db.session.add(new_user)
-            #     db.session.commit()
-        return self.render('templates/crud/create.html', form=form_fields, submit='create account',action='/signup/')
+            if (res.get('status_code') == 200):
+                #return self.render('templates/auth/signin.html', res=res, form=form_fields, submit='signin', action='/signin/')
+                flash(res.get('message'))
+                return redirect(url_for('signin.indecx'), 302,)
+            else: return self.render('templates/auth/signup.html', res=res, form=form_fields, submit='create account',action='/signup/')
+
+        return self.render('templates/auth/signup.html', form=form_fields, submit='create account',action='/signup/')
 
 
 class SignIn(BaseView):
@@ -117,7 +114,7 @@ class SignIn(BaseView):
      def indecx(self):
          form = CustomForm()
          form_fields = {
-             'username': form.username,
+             'email': form.email,
              'password': form.password
          }
          if request.method == 'POST':
@@ -134,9 +131,7 @@ class SignIn(BaseView):
                      return make_response({'user': current_user.username})
 
              return make_response({'status':resp['stat_code']})
-         return self.render('templates/crud/create.html', form=form_fields, submit='signin',
-                            action='/signin/'
-                            )
+         return self.render('templates/auth/signin.html', form=form_fields, submit='signin',action='/signin/')
 
 
 
@@ -146,12 +141,5 @@ class MyView(BaseView):
     def index(self):
         return 'Hello World!'
 
-
-def call_post_api(payload ,endpoint):
-    api_url = 'http://127.0.0.1:5000/api/'
-    r = requests.post(api_url+endpoint, json=payload)
-    #dics = json.loads(r.text)
-    #dics["stat_code"] = r.status_code
-    return r.status_code
 
 
