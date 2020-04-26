@@ -6,6 +6,7 @@ from flask_admin.contrib import sqla
 from Form.MyForm import CustomForm
 from Model.User import User, db
 from flask_login import login_user, current_user, login_required
+from Services.REST_API_Client.rest import REST
 
 
 class MicroBlogModelView(sqla.ModelView):
@@ -86,24 +87,29 @@ class SignUp(BaseView ):
 
     @expose('/', methods=('GET', 'POST'))
     def index(self):
+        restClient = REST()
         form = CustomForm()
         form_fields = {
         'username':form.username,
-        'password':form.password
+        'password':form.password,
+        'email':form.email
         }
         if request.method == 'POST':
             payload = {
                 "username": request.values.get('username'),
-                "password": request.values.get('password')
+                "password": request.values.get('password'),
+                "email":    request.values.get('email')
             }
-            resp = call_post_api(payload,'users')
-            if (resp["stat_code"] == 200):
-                new_user = User(resp['user']['username'], resp['user']['password'])
-                db.session.add(new_user)
-                db.session.commit()
-        return self.render('templates/crud/create.html', form=form_fields, submit='create account',
-                           action='/signup/'
-                           )
+            #resp = call_post_api(payload,'signup')
+            #print(resp)
+            res = restClient.register('signup', payload)
+            return self.render('templates/crud/create.html', res=res, form=form_fields, submit='create account', action='/signup/')
+            #return make_response(res)
+            # if (resp["stat_code"] == 200):
+            #     new_user = User(resp['user']['username'], resp['user']['password'])
+            #     db.session.add(new_user)
+            #     db.session.commit()
+        return self.render('templates/crud/create.html', form=form_fields, submit='create account',action='/signup/')
 
 
 class SignIn(BaseView):
@@ -144,8 +150,8 @@ class MyView(BaseView):
 def call_post_api(payload ,endpoint):
     api_url = 'http://127.0.0.1:5000/api/'
     r = requests.post(api_url+endpoint, json=payload)
-    dics = json.loads(r.text)
-    dics["stat_code"] = r.status_code
-    return dics
+    #dics = json.loads(r.text)
+    #dics["stat_code"] = r.status_code
+    return r.status_code
 
 

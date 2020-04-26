@@ -1,10 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, Form
+from wtforms import StringField, PasswordField, Form, IntegerField
 from wtforms.validators import DataRequired
 
 class CustomForm(FlaskForm):
-      username = StringField(label='username')
-      password = StringField(label='password')
+      username = IntegerField(label='username')
+      password = PasswordField(label='password')
+      email = StringField(label='email')
 
       # submit =
 

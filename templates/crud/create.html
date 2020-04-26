@@ -1,10 +1,57 @@
 {% extends 'admin/index.html' %}
 
+{% block help_css %}
+    <style>
+        label{
+            min-width: 50px!important;
+        }
+    </style>
+{% endblock %}
+
 {% block title %}
   Product-Create
 {% endblock %}
 
 {% block body %}
+
+
+<div style="width: 30%">
+    {% if res is defined %}
+
+       {% if res['status_code'] == 200  %}
+                <div class="alert alert-success" role="alert">
+                     {{res['message']}}
+                </div>
+
+       {% elif res['status_code'] == 422 %}
+
+           {% if res['errors']['blank_fields'] is defined %}
+                {% set blank_fields = res['errors']['blank_fields'] %}
+                {%for v in blank_fields %}
+                    <div class="alert alert-danger" role="alert">
+                         {{v}} can't be blank
+                    </div>
+                {% endfor %}
+
+           {% elif res['errors']['password_error'] is defined %}
+                {% set password_error = res['errors']['password_error'] %}
+                <div class="alert alert-danger" role="alert">
+                    {{password_error}}
+                </div>
+
+           {% elif res['errors']['unique_fields'] is defined %}
+                {% set unique_fields = res['errors']['unique_fields'] %}
+                <div class="alert alert-danger" role="alert">
+                    {{unique_fields}}
+                </div>
+
+          {% endif %}
+
+       {% endif %}
+
+    {% endif %}
+
+</div>
 
 <form method="POST" action="{{action}}">
     {{ form.csrf_token }}
