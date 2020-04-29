@@ -119,18 +119,14 @@ class SignIn(BaseView):
          }
          if request.method == 'POST':
              payload = {
-                 "username": request.values.get('username'),
+                 "email": request.values.get('email'),
                  "password": request.values.get('password')
              }
-             resp = call_post_api(payload, 'users/login')
 
-             if(resp['stat_code']):
-                 user = User.query.filter_by(username=payload['username']).first()
-                 if user is not None:
-                     login_user(user)
-                     return make_response({'user': current_user.username})
+             res = restClient.register('signin', payload)
+             if (res.get('status_code') == 200):
+                 return redirect(url_for('signin.indecx'), 302, )
 
-             return make_response({'status':resp['stat_code']})
          return self.render('templates/auth/signin.html', form=form_fields, submit='signin',action='/signin/')
 
 
