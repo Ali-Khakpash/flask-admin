@@ -1,31 +1,32 @@
 from flask import Flask, g, session, request
 from config import config
 from Model.User import db, User
-from admin import myadmin
-from routes.Authentication import auth_routes, sign_in
 from flask_authorize import Authorize
 from login_handle import login_manager
 from flask_login import current_user
+from flask_menu import Menu
+from controller.menu import menu
 # from authorize import authorize
 
 authorize = Authorize()
+Menu_Instance = Menu()
 
 def imp():
     fgfg = 'dff'
     return fgfg
 
 def create_app(config_name):
-    app = Flask(__name__)
+    app = Flask(__name__, template_folder="../templates", static_folder="../static",)
 
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
     with app.app_context():
         db.init_app(app)
+        Menu_Instance.init_app(app)
         login_manager.init_app(app)
         authorize.init_app(app)
-        myadmin.init_app(app)
-        app.register_blueprint(auth_routes, url_prefix='/auth')
         db.create_all()
+        app.register_blueprint(menu, url_prefix='/')
         @app.before_request
         def before_request_func():
             g.ass = 'ass'
