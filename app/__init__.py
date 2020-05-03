@@ -6,6 +6,7 @@ from login_handle import login_manager
 from flask_login import current_user
 from flask_menu import Menu
 from controller.menu import menu
+from controller.dashboard import dashboard
 # from authorize import authorize
 
 authorize = Authorize()
@@ -27,6 +28,7 @@ def create_app(config_name):
         authorize.init_app(app)
         db.create_all()
         app.register_blueprint(menu, url_prefix='/')
+        app.register_blueprint(dashboard, url_prefix='/')
         @app.before_request
         def before_request_func():
             g.ass = 'ass'

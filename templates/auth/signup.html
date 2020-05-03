@@ -1,19 +1,29 @@
 {% extends "layout.html" %}
 
 
+{% block help_css %}
+    <style>
+        label{
+            min-width: 50px!important;
+        }
+        .alert-dismissable{
+                display: none;
+        }
+    </style>
+{% endblock %}
+
 {% block main %}
 
-<div style="width: 30%">
-{% if res is defined %}
+<div class="auth">
+    <div class="text-center my-5">
+        <h3>Register Now</h3>
+        <p>Enjoy the Moment</p>
 
-   {% if res['status_code'] == 200  %}
-            <div class="alert alert-success" role="alert">
-                 {{res['message']}}
-            </div>
+        <!-- Validation Errors -->
+        <div style="width: 30%;display: block;margin:0 auto;">
+{% if res %}
 
-   {% elif res['status_code'] == 422 %}
-
-       {% if res['errors']['blank_fields'] is defined %}
+       {% if res['errors']['blank_fields'] %}
             {% set blank_fields = res['errors']['blank_fields'] %}
             {%for v in blank_fields %}
                 <div class="alert alert-danger" role="alert">
@@ -21,13 +31,13 @@
                 </div>
             {% endfor %}
 
-       {% elif res['errors']['password_error'] is defined %}
+       {% elif res['errors']['password_error'] %}
             {% set password_error = res['errors']['password_error'] %}
             <div class="alert alert-danger" role="alert">
                 {{password_error}}
             </div>
 
-       {% elif res['errors']['unique_fields'] is defined %}
+       {% elif res['errors']['unique_fields'] %}
             {% set unique_fields = res['errors']['unique_fields'] %}
             <div class="alert alert-danger" role="alert">
                 {{unique_fields}}
@@ -35,17 +45,9 @@
 
       {% endif %}
 
-   {% endif %}
-
 {% endif %}
 
 </div>
-
-
-<div class="auth-register">
-    <div class="text-center my-5">
-        <h3>Register Now</h3>
-        <p>Enjoy the Moment</p>
     </div>
     <div class="form-register">
         <form class="form " method="POST" action="{{action}}">
@@ -71,7 +73,9 @@
             <input class="btn btn-primary btn-block btn-lg fw-400" type="submit" value="{{submit}}">
         </form>
     </div>
+
 </div>
+
 
 {% endblock %}
 

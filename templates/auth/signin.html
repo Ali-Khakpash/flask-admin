@@ -18,21 +18,33 @@
 {% block main %}
 
 
-<div style="width: 30%">
+<div class="auth">
+    <div class="text-center my-5">
+        <h3>Login Now</h3>
 
+        <!-- flash messages -->
+        <div style="width: 30%; display: block; margin:0 auto;">
     {% set message = get_flashed_messages() %}
           {% if message %}
             <div class="alert alert-success" role="alert">
                 {{ message | replace("[", "") | replace("]","") | replace('"',"") }}
             </div>
           {% endif %}
-
 </div>
-
-
-<div class="auth-register">
-    <div class="text-center my-5">
-        <h3>Login Now</h3>
+        <!-- Validation Errors -->
+        <div style="width: 30%;display: block;margin:0 auto;">
+            {% if res %}
+                {% if res['status_code'] == 401 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ res['error'] }}
+                    </div>
+                {% elif res['status_code'] == 422 %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ res['error'] }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
     </div>
     <div class="form-register">
         <form class="form " method="POST" action="{{action}}">
