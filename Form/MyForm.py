@@ -4,8 +4,8 @@ from wtforms.validators import DataRequired
 
 class CustomForm(FlaskForm):
       username = IntegerField(label='username')
-      password = PasswordField(label='password')
-      email = StringField(label='email')
+      password = PasswordField(label='password', render_kw={'class':'form-control', 'placeholder':'Password'} )
+      email = StringField(label='email', render_kw={'class':'form-control', 'placeholder':'Email'} )
 
       # submit =
 
