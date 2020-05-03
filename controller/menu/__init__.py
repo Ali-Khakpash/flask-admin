@@ -13,10 +13,28 @@ def index():
         return render_template('menu/index.html')
 
 
+
+
 @menu.route('login', methods=['GET'])
 @register_menu(menu, '.login', 'Sign in')
 def login():
-        return render_template('auth/signin.html')
+        form = CustomForm()
+        form_fields = {
+                'email': form.email,
+                'password': form.password
+        }
+        if request.method == 'POST':
+                payload = {
+                        "email": request.values.get('email'),
+                        "password": request.values.get('password')
+                }
+
+                res = restClient.register('signin', payload)
+                if (res.get('status_code') == 200):
+                        return redirect(url_for('signin.indecx'), 302, )
+
+        return render_template('auth/signin.html', form=form_fields, submit='Login', action='/signin/')
+
 
 
 
