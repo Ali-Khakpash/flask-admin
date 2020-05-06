@@ -1,3 +1,12 @@
+body{
+    background-color: #f4f7fa;
+    font-size: 14px;
+}
+
+nav{
+    background-color: #fff;
+}
+
 /* Sign UP */
 .auth{
     background-color: #77aa77;
@@ -13,4 +22,41 @@ div.form-register {
     display: block;
     margin: 0 auto;
     margin-top: 50px;
+}
+
+
+/* profile-header-main */
+.profile-header-main{
+    background-color: #ffffff;
+    min-width: 300px;
+}
+.avatar img{
+    display: block;
+    margin: 0 auto;
+    width:   150px;
+    height:  150px;
+    border-radius: 50%;
+}
+
+.profile-name .name h1{
+    font-size: 30px;
+}
+
+.profile-header-info{
+    background-color: #ffffff;
+}
+
+.profile-info-row{
+    display: flex;
+    margin: 10px;
+}
+
+.profile-info-row dt{
+    min-width: 130px;
+    font-weight: 600!important;
+}
+
+.portfolio-social-media i{
+    font-size: 20px!important;
+    padding: 5px;
 }

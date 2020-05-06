@@ -1,1 +1,55 @@
-<h2>home</h2>
+{% extends "layout.html" %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block main %}
+    <div class="d-flex m-5">
+          <div class="profile-header-main m-3">
+              <div class="avatar pt-3">
+                  <img src="/static/img/me.jpeg">
+              </div>
+              <div class="profile-name pt-2">
+                  <div class="name text-center">
+                      <h1>Ali Khakpash</h1>
+                  </div>
+              </div>
+          </div>
+          <div class="profile-header-info m-3">
+              <dl class="profile-info-row">
+                  <dt>Age:</dt>
+                  <dd>df</dd>
+              </dl>
+              <dl class="profile-info-row">
+                  <dt>Location:</dt>
+                  <dd>df</dd>
+              </dl>
+              <dl class="profile-info-row">
+                  <dt>Phone Number:</dt>
+                  <dd>df</dd>
+              </dl>
+              <ul class="text-center mt-4 list-inline portfolio-social-media">
+                  <li class="list-inline-item">
+                      <a target="_blank" rel="nofollow" href="#">
+                          <i class="fa fa-facebook"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a target="_blank" rel="nofollow" href="#">
+                          <i class="fa fa-instagram"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a target="_blank" rel="nofollow" href="#">
+                          <i class="fab fa-telegram"></i>
+                      </a>
+                  </li>
+                  <li class="list-inline-item">
+                      <a target="_blank" rel="nofollow" href="#">
+                          <i class="fab fa-whatsapp"></i>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+    </div>
+{% endblock %}

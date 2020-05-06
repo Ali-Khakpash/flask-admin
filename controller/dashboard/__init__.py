@@ -1,4 +1,7 @@
-from flask import redirect, url_for, flash, Blueprint, request, make_response, render_template
+from flask import (
+    redirect, url_for, flash, Blueprint, request,
+    make_response, render_template,
+    )
 
 
 dashboard = Blueprint("dashboard", __name__)
