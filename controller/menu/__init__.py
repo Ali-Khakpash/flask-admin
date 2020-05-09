@@ -1,9 +1,18 @@
-from flask import redirect, url_for, flash, Blueprint, request, make_response, render_template
+from flask import (redirect,
+                   url_for,
+                   flash,
+                   Blueprint,
+                   request,
+                   make_response,
+                   render_template,
+                   session,
+                   )
 from flask_menu import register_menu
-# from controller.dashboard import dashboard
 from ..dashboard import dashboard
 from Form.MyForm import CustomForm
 from Services.REST_API_Client.rest import REST
+from flask_login import login_user
+from Services.User_Load_From_Api import UserLoadApi
 
 menu = Blueprint("menu", __name__)
 
@@ -30,10 +39,12 @@ def login():
         }
 
         res = rest_client.register('signin', payload)
-        if (res.get('status_code') == 200):
-                return redirect(url_for('dashboard.home'), 302, )
+        if res.get('status_code') == 200:
+            session['access_token'] = res.get('access_token')
+            session['email'] = res.get('currentUser')
+            return redirect(url_for('dashboard.home'), 302, )
         else:
-                return render_template('auth/signin.html', res=res, form=form_fields, submit='Login', action='login')
+            return render_template('auth/signin.html', res=res, form=form_fields, submit='Login', action='login')
 
     return render_template('auth/signin.html', form=form_fields, submit='Login', action='login')
 
@@ -58,6 +69,7 @@ def register():
             flash(res.get('message'))
             return redirect(url_for('menu.login'), 302, )
         else:
-            return render_template('auth/signup.html', res=res, form=form_fields, submit='create account', action='register')
+            return render_template('auth/signup.html', res=res, form=form_fields, submit='create account',
+                                   action='register')
 
     return render_template('auth/signup.html', form=form_fields, submit='Create account', action='register')
