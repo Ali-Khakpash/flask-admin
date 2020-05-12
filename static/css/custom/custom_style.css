@@ -60,3 +60,44 @@ div.form-register {
     font-size: 20px!important;
     padding: 5px;
 }
+
+
+/* home   section edit profile  */
+.avatar-input .avatar-file-picker{
+    position: absolute;
+    z-index: 2;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+}
+
+label.avatar-input{
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-bottom: .5rem;
+    width: 85px;
+    height: 85px;
+}
+
+.avatar-img{
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 50%!important;
+    vertical-align: middle !important;
+    border-style: none !important;
+}
+
+.btn-upload-img{
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,.1);
+    color: #95aac9;
+    border-color: #95aac9;
+    font-size: .9rem;
+}
+
+.searchBy-name{
+    margin-top: 5px !important;
+}
+

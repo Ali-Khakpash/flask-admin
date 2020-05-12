@@ -12,7 +12,7 @@ from flask import (redirect,
 from functools import wraps
 from Services.login_required import login_required
 from Services.User_Load_From_Api import UserLoadApi
-
+from Form.EditForm import EditForm
 
 dashboard = Blueprint("dashboard", __name__)
 
@@ -20,7 +20,9 @@ dashboard = Blueprint("dashboard", __name__)
 
 @dashboard.route('home', methods=['GET'])
 def home():
-    return render_template('dashboard/home.html')
+    q = request.args.get('q')
+    edit_form = EditForm()
+    return render_template('dashboard/home.html', q=q, edit_form=edit_form)
 
 
 @dashboard.route('test', methods=['GET'])
