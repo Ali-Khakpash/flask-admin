@@ -8,13 +8,12 @@ from flask import (redirect,
                    session,
                    )
 from flask_menu import register_menu
-from ..dashboard import dashboard
+from .. import dashboard
 from Form.MyForm import CustomForm
 from Services.REST_API_Client.rest import REST
 from flask_login import login_user
 from Services.User_Load_From_Api import UserLoadApi
-
-menu = Blueprint("menu", __name__)
+from .. import menu
 
 
 @menu.route('', methods=['GET'])

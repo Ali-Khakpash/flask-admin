@@ -7,45 +7,45 @@
     <div class="d-flex m-5">
           <div class="profile-header-main m-3">
               <div class="avatar pt-3">
-                  <img src="/static/img/me.jpeg">
+                  <img id="user_avatar" src="">
               </div>
               <div class="profile-name pt-2">
                   <div class="name text-center">
-                      <h1>Ali Khakpash</h1>
+                      <h1 id="user_fullname"></h1>
                   </div>
               </div>
           </div>
           <div class="profile-header-info m-3">
               <dl class="profile-info-row">
                   <dt>Age:</dt>
-                  <dd>df</dd>
+                  <dd id="age"></dd>
               </dl>
               <dl class="profile-info-row">
                   <dt>Location:</dt>
-                  <dd>df</dd>
+                  <dd id="location">df</dd>
               </dl>
               <dl class="profile-info-row">
                   <dt>Phone Number:</dt>
-                  <dd>df</dd>
+                  <dd id="phone_number">df</dd>
               </dl>
               <ul class="text-center mt-4 list-inline portfolio-social-media">
                   <li class="list-inline-item">
-                      <a target="_blank" rel="nofollow" href="#">
+                      <a id="facebook" target="_blank" rel="nofollow" href="#">
                           <i class="fa fa-facebook"></i>
                       </a>
                   </li>
                   <li class="list-inline-item">
-                      <a target="_blank" rel="nofollow" href="#">
+                      <a id="instagram" target="_blank" rel="nofollow" href="#">
                           <i class="fa fa-instagram"></i>
                       </a>
                   </li>
                   <li class="list-inline-item">
-                      <a target="_blank" rel="nofollow" href="#">
-                          <i class="fab fa-telegram"></i>
+                      <a id="skype" target="_blank" rel="nofollow" href="#">
+                          <i class="fab fa-skype"></i>
                       </a>
                   </li>
                   <li class="list-inline-item">
-                      <a target="_blank" rel="nofollow" href="#">
+                      <a id="whatsapp" target="_blank" rel="nofollow" href="#">
                           <i class="fab fa-whatsapp"></i>
                       </a>
                   </li>
@@ -82,14 +82,14 @@
                                     <i class="mdi mdi-upload mdi-24px"></i>
                                 </span>
                             </span>
-                            <input type="file" class="avatar-file-picker" id="profile_picture" accept=".jpg, .png">
+                            <input type="file" name="file" class="avatar-file-picker" id="profile_picture" accept=".jpg, .png" onclick="upload_avatar()">
                         </label>
                     </div>
                     <button class="btn btn-outline-secondary btn-upload-img" onclick="$('#profile_picture').click();">Upload Photo</button>
                     <h3 class="searchBy-name" id="card_user_name">Ehsan Nima</h3>
           </div>
 
-          <form id="edit_profile_form">
+                <form id="edit_profile_form">
                     <input type="hidden" name="_token" value="buj2RSLEo6mpdAGlojFcwOJsXzGlUYYThbHZx2WG">
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
@@ -104,6 +104,11 @@
                                 {{ edit_form.last_name }}
                             </div>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label> {{ edit_form.age.label }}<span class="text-info"> * </span></label>
+                        {{ edit_form.age }}
                     </div>
 
 
@@ -365,15 +370,16 @@
                         </div>
                     </div>
 
+                    <div class="modal-footer">
+                        <button onclick="" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"> Submit </button>
+                    </div>
 
                 </form>
 
       </div>
 
-      <div class="modal-footer">
-        <button onclick="" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
     </div>
   </div>
 </div>
@@ -390,13 +396,17 @@
     </script>
 {% endif %}
 
+{% endblock %}
 
+{% block tail_js %}
+    <script src="{{ url_for('static', filename='js/ajax/rest.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        let form = '#edit_profile_form';
+        let endpoint = 'edit_profile';
+        edit(form, endpoint);
+    </script>
 
-
-
-
-
-
-
-
+    <script type="text/javascript">
+        get('home_data');
+    </script>
 {% endblock %}
